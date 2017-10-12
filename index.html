@@ -1,1 +1,63 @@
-"hello world" 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+
+		<title>Dice</title>
+
+		<style>
+			.dieButton {
+			  width: 80px;
+			  height: 80px;
+			  font-size: 16pt;
+			}
+			.dieResult {
+			  font-size: 16pt;
+			}
+			.dieResult span {
+			  transition: all 0.4s ease-out;
+			  opacity: 0;
+			  background-color: #f00;
+			}
+			.dieResult span.show {
+			  opacity: 1;
+			  background-color: #fff;
+			}
+		</style>
+
+		<script>
+			function rollDie(id, maxValue){
+				var value = 1 + (Math.random() * maxValue) | 0;
+				var resultHolder = document.createElement("span");
+				resultHolder.innerHTML = "["+value+"]";
+				document.getElementById(id).appendChild(resultHolder);
+				setTimeout(function(){
+					resultHolder.className = "show";
+				}, 30);
+			}
+		</script>
+
+	</head>
+	<body>
+		<table class="diceTable">
+			<tr>
+				<td><button class="dieButton" onclick="rollDie('d20result', 20)">d20</button></td>
+				<td><div class="dieResult" id="d20result"></div></td>
+			</tr>
+			<tr>
+				<td><button class="dieButton" onclick="rollDie('d10result', 10)">d10</button></td>
+				<td><div class="dieResult" id="d10result"></div></td>
+			</tr>
+			<tr>
+				<td><button class="dieButton" onclick="rollDie('d8result', 8)">d8</button></td>
+				<td><div class="dieResult" id="d8result"></div></td>
+			</tr>
+			<tr>
+				<td><button class="dieButton" onclick="rollDie('d4result', 4)">d4</button></td>
+				<td><div class="dieResult" id="d4result"></div></td>
+			</tr>
+		</table>
+	</body>
+</html>
