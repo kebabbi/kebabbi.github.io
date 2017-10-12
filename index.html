@@ -8,73 +8,89 @@
         <title>Dice</title>
 
         <style>
+            body {
+                margin: 0px;
+            }
             .dieContainer {
                 height: 80px;
                 width: 100%;
                 border-bottom: 1px solid black;
             }
-            .dieButton {
+            .dieContainer > button {
                 width: 80px;
                 height: 100%;
                 font-size: 16pt;
                 display: inline-block;
                 float: left;
             }
-            .dieResult {
+            .dieContainer > span {
                 font-size: 16pt;                
                 height: 100%;
                 width: calc(100% - 80px);
                 display: inline-block;
                 overflow-y: scroll;
+                font-family: monospace;
             }
-
-
-            .dieResult span {
+            .dieContainer > span span {
                 transition: all 0.4s ease-out;
                 opacity: 0;
                 background-color: #f00;
+                margin-left: 5px;
+                display:inline-block;
             }
-            .dieResult span.show {
+            .dieContainer > span span.show:nth-child(2n) {
+                background-color: #EEE;
+            }
+            .dieContainer > span span.show {
               opacity: 1;
               background-color: #fff;
             }
         </style>
 
         <script>
-            function rollDie(id, maxValue){
-                var value = 1 + (Math.random() * maxValue) | 0;
-                var dieResult = document.getElementById(id);
+            function rollDie(button, maxValue){
+                var stringLength = (""+maxValue).length;
+                var value = Math.floor(Math.random() * maxValue);
+                var dieResult = button.parentNode.children[1]
                 var resultHolder = document.createElement("span");
-                resultHolder.innerHTML = "["+value+"]";
+                resultHolder.innerHTML = padLeft(value, stringLength, "0");
                 dieResult.appendChild(resultHolder);
                 setTimeout(function(){
                     resultHolder.className = "show";
                     dieResult.scrollTop = dieResult.scrollHeight;
                 }, 30);
             }
+
+            function padLeft(word, length, padding){
+                var paddedWord = ""+word;
+                while(paddedWord.length < length){
+                    paddedWord = padding + paddedWord;
+                }
+                return paddedWord;
+            }
         </script>
 
     </head>
     <body>
         <div class="dieContainer">
-            <button class="dieButton" onclick="rollDie('d20result', 20)">d20</button>
-            <div class="dieResult" id="d20result"></div>
+            <button onclick="rollDie(this,20)">d20</button>
+            <span></span>
         </div>
         <div class="dieContainer">
-            <button class="dieButton" onclick="rollDie('d10result', 10)">d10</button>
-            <span class="dieResult" id="d10result"></span>
+            <button onclick="rollDie(this,10)">d10</button>
+            <span></span>
         </div>
         <div class="dieContainer">
-            <button class="dieButton" onclick="rollDie('d8result', 8)">d8</button>
-            <span class="dieResult" id="d8result"></span>
+            <button onclick="rollDie(this,8)">d8</button>
+            <span></span>
         </div>
         <div class="dieContainer">
-            <button class="dieButton" onclick="rollDie('d6result', 6)">d6</button>
-            <span class="dieResult" id="d6result"></span>
+            <button onclick="rollDie(this,6)">d6</button>
+            <span></span>
         </div>
         <div class="dieContainer">
-            <button class="dieButton" onclick="rollDie('d4result', 4)">d4</button>
-            <span class="dieResult" id="d4result"></span>
+            <button onclick="rollDie(this,4)">d4</button>
+            <span></span>
         </div>
     </body>
 </html>
