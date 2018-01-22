@@ -50,7 +50,7 @@
         <script>
             function rollDie(button, maxValue){
                 var stringLength = (""+maxValue).length;
-                var value = Math.floor(Math.random() * maxValue);
+                var value = 1 + Math.floor(Math.random() * maxValue);
                 var dieResult = button.parentNode.children[1]
                 var resultHolder = document.createElement("span");
                 resultHolder.innerHTML = padLeft(value, stringLength, "0");
@@ -58,7 +58,7 @@
                 setTimeout(function(){
                     resultHolder.className = "show";
                     dieResult.scrollTop = dieResult.scrollHeight;
-                }, 30);
+                }, 20);
             }
 
             function padLeft(word, length, padding){
@@ -74,6 +74,10 @@
     <body>
         <div class="dieContainer">
             <button onclick="rollDie(this,20)">d20</button>
+            <span></span>
+        </div>
+        <div class="dieContainer">
+            <button onclick="rollDie(this,12)">d12</button>
             <span></span>
         </div>
         <div class="dieContainer">
